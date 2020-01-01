@@ -1,4 +1,22 @@
+{{ $data := index .Site.Data .Site.Language.Lang }}
 <!-- Copyright -->
 <div id="copyright">
-    <ul><li>&copy; {{ .Site.Title }}</li><li>{{ i18n "COPYRIGHT_MESSAGE_1" . | markdownify }}</li><li>{{ i18n "COPYRIGHT_MESSAGE_2" . | markdownify }}</li></ul>
+    <ul>
+      {{ with .Site.Copyright }}
+        <li>&copy; {{ now.Format "2006" }} {{ . | markdownify }}</li>
+      {{ else }}
+        <li>&copy; {{ now.Format "2006" }} {{ .Site.Title }}</li>
+      {{ end }}
+    </ul>
+    <br/>
+    <ul>
+      {{ with $data.copyright }}
+        {{ range .attributions }}
+          <li>{{ . | markdownify }}</li>
+        {{ end }}
+      {{ else }}
+        <li>{{ i18n "COPYRIGHT_MESSAGE_1" . | markdownify }}</li>
+        <li>{{ i18n "COPYRIGHT_MESSAGE_2" . | markdownify }}</li>
+      {{ end }}
+    </ul>
 </div>
