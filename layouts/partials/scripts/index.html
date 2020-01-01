@@ -6,8 +6,11 @@
 {{ $util := resources.Get "js/util.js" }}
 {{ $main := resources.Get "js/main.js" }}
 
-{{ $js := slice $jQuery $scrollex $scrolly $browser $breakpoints $util $main | resources.Concat "assets/js/bundle.js" }}
+{{ $js := slice $jQuery $scrollex $scrolly $browser $breakpoints $util $main | resources.Concat "assets/js/bundle.js" | resources.Minify }}
 
 <!-- Scripts -->
 <script src='{{ $js.RelPermalink }}'></script>
-
+{{ if and ( isset .Site.Params "enableparallax" ) ( eq .Site.Params.enableParallax true ) -}}
+{{ $parallax := slice ( resources.Get "js/parallax.js" ) | resources.Concat "assets/js/parallax.js" | resources.Minify }}
+<script src='{{ $parallax.RelPermalink }}'></script>
+{{ end }}
