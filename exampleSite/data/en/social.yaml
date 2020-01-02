@@ -1,9 +1,16 @@
-twitter: "https://twitter.com/"
-facebook: "https://facebook.com"
-instagram: "https://instagram.com"
-linkedin: "https://www.linkedin.com"
-github: "https://github.com/"
-youtube: "https://youtube.com/"
-googleplus: "https://plus.google.com/"
-lastfm: "https://last.fm/"
-flickr: "https://flickr.com/"
+profiles:
+- name: Diaspora
+  icon: fab fa-diaspora
+  url: "https://diasporafoundation.org/"
+- name: Mastodon
+  icon: fab fa-mastodon
+  url: "https://mastodon.social"
+- url: "https://twitter.com/"
+- url: "https://facebook.com"
+- url: "https://instagram.com"
+- url: "https://linkedin.com"
+- url: "https://github.com/"
+- url: "https://youtube.com/"
+- url: "https://plus.google.com/"
+- url: "https://last.fm/"
+- url: "https://flickr.com/"
