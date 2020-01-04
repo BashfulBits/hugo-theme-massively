@@ -1,20 +1,43 @@
 <!-- Nav -->
 {{ $data := index .Site.Data .Site.Language.Lang }}
 <nav id="nav">
-    <ul class="links">
-        <li class="active"><a href='{{ "/" | relLangURL }}'>{{ .Site.Title }}</a></li>
-        {{ with $data.contactinfo }}
-        <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
+  <ul class="links">
+    {{ $current := . }}
+    {{ range .Site.Menus.main }}
+      {{ $topLevel := replace .URL "/" "" }}
+      <li class="dropdown{{ if eq $current.RelPermalink .URL | or (eq $current.Type $topLevel) | or (and (eq (default (trim .URL "/") .Identifier) "blog") (in (slice "taxonomy" "taxonomyTerm") $current.Kind)) }} active{{ end }}">
+      {{ if .HasChildren }}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        {{ range .Children }}
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
         {{ end }}
-        {{ if .IsTranslated }}
-        {{ range .AllTranslations }}
-        <li {{if eq ($.Site.Language) (.Language)}}class="active"{{end}}><a href='{{ .Permalink }}'>{{ .Language.LanguageName }}</a></li>
-        {{ end }}
-        {{ end }}
-    </ul>
-    {{ with $data.social }}
-    <ul class="icons">
-      {{ partial "social" . }}
-    </ul>
+        </ul>
+      {{ else }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+      </li>
     {{ end }}
+    {{ with $data.contactinfo }}
+      <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
+    {{ end }}
+  </ul>
+  {{ with $data.social }}
+  <ul class="icons">
+    {{- partial "social" . }}
+  </ul>
+  {{ end }}
+  {{/*
+  {{ if .IsTranslated }}
+  <ul class="icons">
+    {{ range .AllTranslations }}
+      <li>
+        <a href="#" class="icon fas fa-language">
+          <span class="label">Language</span>
+        </a>
+      </li>
+      <!-- <li {{if eq ($.Site.Language) (.Language)}}class="active"{{end}}><a href='{{ .Permalink }}'>{{ .Language.LanguageName }}</a></li> -->
+  </ul>
+  {{ end }}
+  */}}
 </nav>

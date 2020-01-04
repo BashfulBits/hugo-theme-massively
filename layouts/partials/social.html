@@ -1,41 +1,42 @@
 {{ range .profiles }}
   <!-- Show default icons if not specified in social data -->
-  {{ $icon := .icon }}
-  {{ if not (isset . "icon" ) }}
-    {{ if in (lower .url) "facebook.com" }}{{ $icon = "fab fa-facebook-f" }}{{ end }}
-    {{ if in (lower .url) "flickr.com" }}{{ $icon = "fab fa-flickr" }}{{ end }}
-    {{ if in (lower .url) "github.com" }}{{ $icon = "fab fa-github" }}{{ end }}
-    {{ if in (lower .url) "gitlab.com" }}{{ $icon = "fab fa-gitlab" }}{{ end }}
-    {{ if in (lower .url) "instagram.com" }}{{ $icon = "fab fa-instagram" }}{{ end }}
-    {{ if in (lower .url) "last.fm" }}{{ $icon = "fab fa-lastfm" }}{{ end }}
-    {{ if in (lower .url) "linkedin.com" }}{{ $icon = "fab fa-linkedin-in" }}{{ end }}
-    {{ if in (lower .url) "plus.google.com" }}{{ $icon = "fab fa-googleplus-g" }}{{ end }}
-    {{ if in (lower .url) "stackoverflow.com" }}{{ $icon = "fab fa-stack-overflow" }}{{ end }}
-    {{ if in (lower .url) "twitter.com" }}{{ $icon = "fab fa-twitter" }}{{ end }}
-    {{ if in (lower .url) "xing.com" }}{{ $icon = "fab fa-xing" }}{{ end }}
-    {{ if in (lower .url) "youtube.com" }}{{ $icon = "fab fa-youtube" }}{{ end }}
-  {{ end }}
+  {{- $icon := .icon -}}
+  {{- if not (isset . "icon" ) -}}
+    {{- if in (lower .url) "facebook.com"      }}{{ $icon = "fab fa-facebook-f"      }}{{ end }}
+    {{- if in (lower .url) "flickr.com"        }}{{ $icon = "fab fa-flickr"          }}{{ end }}
+    {{- if in (lower .url) "github.com"        }}{{ $icon = "fab fa-github"          }}{{ end }}
+    {{- if in (lower .url) "gitlab.com"        }}{{ $icon = "fab fa-gitlab"          }}{{ end }}
+    {{- if in (lower .url) "instagram.com"     }}{{ $icon = "fab fa-instagram"       }}{{ end }}
+    {{- if in (lower .url) "last.fm"           }}{{ $icon = "fab fa-lastfm"          }}{{ end }}
+    {{- if in (lower .url) "linkedin.com"      }}{{ $icon = "fab fa-linkedin-in"     }}{{ end }}
+    {{- if in (lower .url) "plus.google.com"   }}{{ $icon = "fab fa-googleplus-g"    }}{{ end }}
+    {{- if in (lower .url) "stackoverflow.com" }}{{ $icon = "fab fa-stack-overflow"  }}{{ end }}
+    {{- if in (lower .url) "twitter.com"       }}{{ $icon = "fab fa-twitter"         }}{{ end }}
+    {{- if in (lower .url) "xing.com"          }}{{ $icon = "fab fa-xing"            }}{{ end }}
+    {{- if in (lower .url) "youtube.com"       }}{{ $icon = "fab fa-youtube"         }}{{ end }}
+  {{- end -}}
 
   <!-- Use default name if not specified in social data -->
-  {{ $name := .name }}
-  {{ if not (isset . "icon" ) }}
-    {{ if in (lower .url) "facebook.com" }}{{ $name = "Facebook" }}{{ end }}
-    {{ if in (lower .url) "flickr.com" }}{{ $name = "Flickr" }}{{ end }}
-    {{ if in (lower .url) "github.com" }}{{ $name = "GitHub" }}{{ end }}
-    {{ if in (lower .url) "gitlab.com" }}{{ $name = "GitLab" }}{{ end }}
-    {{ if in (lower .url) "instagram.com" }}{{ $name = "Instagram" }}{{ end }}
-    {{ if in (lower .url) "last.fm" }}{{ $name = "Last.fm" }}{{ end }}
-    {{ if in (lower .url) "linkedin.com" }}{{ $name = "LinkedIn" }}{{ end }}
-    {{ if in (lower .url) "plus.google.com" }}{{ $name = "Google+" }}{{ end }}
-    {{ if in (lower .url) "stackoverflow.com" }}{{ $name = "StackOverflow" }}{{ end }}
-    {{ if in (lower .url) "twitter.com" }}{{ $name = "Twitter" }}{{ end }}
-    {{ if in (lower .url) "xing.com" }}{{ $name = "Xing" }}{{ end }}
-    {{ if in (lower .url) "youtube.com" }}{{ $name = "YouTube" }}{{ end }}
-  {{ end }}
+  {{- $name := .name -}}
+  {{- if not (isset . "icon" ) -}}
+    {{- if in (lower .url) "facebook.com"      }}{{ $name = "Facebook"      }}{{ end }}
+    {{- if in (lower .url) "flickr.com"        }}{{ $name = "Flickr"        }}{{ end }}
+    {{- if in (lower .url) "github.com"        }}{{ $name = "GitHub"        }}{{ end }}
+    {{- if in (lower .url) "gitlab.com"        }}{{ $name = "GitLab"        }}{{ end }}
+    {{- if in (lower .url) "instagram.com"     }}{{ $name = "Instagram"     }}{{ end }}
+    {{- if in (lower .url) "last.fm"           }}{{ $name = "Last.fm"       }}{{ end }}
+    {{- if in (lower .url) "linkedin.com"      }}{{ $name = "LinkedIn"      }}{{ end }}
+    {{- if in (lower .url) "plus.google.com"   }}{{ $name = "Google+"       }}{{ end }}
+    {{- if in (lower .url) "stackoverflow.com" }}{{ $name = "StackOverflow" }}{{ end }}
+    {{- if in (lower .url) "twitter.com"       }}{{ $name = "Twitter"       }}{{ end }}
+    {{- if in (lower .url) "xing.com"          }}{{ $name = "Xing"          }}{{ end }}
+    {{- if in (lower .url) "youtube.com"       }}{{ $name = "YouTube"       }}{{ end }}
+  {{- end -}}
 
   <li>
     <a href="{{ .url }}" class="icon {{ $icon }}">
       <span class="label">{{ $name }}</span>
     </a>
   </li>
-{{ end }}
+
+{{- end -}}

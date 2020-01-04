@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+  <!-- Get current section parameters, default to "lists" or theme defaults if not set -->
+  {{ $parameters := dict "pageSize" 6 "featuredPost" false "paginationPages" 2 "showFirstLast" false "readMore" "Full story" }}
+  {{ with index .Site.Params "section" }}
+    {{ $parameters = merge $parameters . }}
+  {{ end }}
+  {{ with index .Site.Params .Section }}
+    {{ $parameters = merge $parameters . }}
+  {{ end }}
+  
+  <!-- Calculate additional variables -->
+  {{ $firstPost := first 1 .Pages }}
+  {{ $postsForPaging := .Pages }}
+  {{ if and (eq $parameters.featuredPost true) (gt (len .Pages) 1) }}
+    {{ $postsForPaging = after 1 .Pages }}
+  {{ end }}
+  {{ $postsPaging := .Paginate $postsForPaging $parameters.pageSize }}
+
+  <!-- Actual content -->
+  {{ if (eq $parameters.featuredPost true) }}
+    {{ partial "posts/featured.html" (dict "firstpost" $firstPost "siteData" (index .Site.Data .Site.Language.Lang)) }}
+  {{ end }}
+  {{ if (not (and (eq (len .Pages) 1) (eq $parameters.featuredPost true))) }}
+    {{ partial "posts/list.html" (dict "posts" $postsPaging "readMore" $parameters.readMore) }}
+  {{ end }}
+
+  {{ $paginator := .Paginator }}
+  {{ $outer := . }}
+  {{ partial "posts/pagination.html" (dict "paginator" $paginator "outer" $outer)}}
+
+{{ end }}
