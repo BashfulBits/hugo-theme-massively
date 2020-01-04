@@ -19,7 +19,7 @@
 
   <!-- Actual content -->
   {{ if (eq $parameters.featuredPost true) }}
-    {{ partial "posts/featured.html" (dict "firstpost" $firstPost "siteData" (index .Site.Data .Site.Language.Lang)) }}
+    {{ partial "posts/featured.html" (dict "firstpost" $firstPost "readMore" $parameters.readMore) }}
   {{ end }}
   {{ if (not (and (eq (len .Pages) 1) (eq $parameters.featuredPost true))) }}
     {{ partial "posts/list.html" (dict "posts" $postsPaging "readMore" $parameters.readMore) }}
