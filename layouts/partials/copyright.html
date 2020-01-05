@@ -1,16 +1,19 @@
-{{ $data := index .Site.Data .Site.Language.Lang }}
 <!-- Copyright -->
 <div id="copyright">
     <ul>
-      {{ with .Site.Copyright }}
+      {{ with index .Site.Params.Copyright "Copyright" }}
         <li>&copy; {{ now.Format "2006" }} {{ . | markdownify }}</li>
       {{ else }}
-        <li>&copy; {{ now.Format "2006" }} {{ .Site.Title }}</li>
+        {{ with .Site.Copyright }}
+          <li>&copy; {{ now.Format "2006" }} {{ . | markdownify }}</li>
+        {{ else }}
+          <li>&copy; {{ now.Format "2006" }} {{ .Site.Title }}</li>
+        {{ end }}
       {{ end }}
     </ul>
     <br/>
     <ul>
-      {{ with $data.copyright }}
+      {{ with .Site.Params.Copyright }}
         {{ range .attributions }}
           <li>{{ . | markdownify }}</li>
         {{ end }}
@@ -19,4 +22,29 @@
         <li>{{ i18n "COPYRIGHT_MESSAGE_2" . | markdownify }}</li>
       {{ end }}
     </ul>
+    {{ if .GitInfo }}
+      <br/>
+      <ul>
+        <li>
+          {{ if .Site.Params.RepoURL }}
+            <!-- Remove trailing slashes -->
+            {{ $repoURL := replaceRE "^(.+)/$" "$1" .Site.Params.RepoURL }}
+            {{ $contentDir := replaceRE "^(.+)/$" "$1" .Site.Params.ContentDir | default "content" }}
+            <!--  
+              List pages not necessarily have a content file.
+              In this case, we use the section base folder as file path.
+              Using "with" syntax here to get rid of the ".File.Path on zero object" warning
+              (although the "default" pipe would be a cleaner way IMHO
+             -->
+            {{ $filepath := .Section }}
+            {{ with .File }}
+              {{ $filepath = .Path }}
+            {{ end }}
+            <a href="{{ $repoURL }}/blob/{{ .GitInfo.Hash }}/{{ $contentDir }}/{{ $filepath }}" class="icon fas fa-code-branch">&nbsp;{{ .GitInfo.AbbreviatedHash }}</a>
+          {{ else }}
+            <i class="icon fas fa-code-branch"></i>&nbsp;{{ .GitInfo.AbbreviatedHash }}
+          {{ end }}
+        </li>
+      </ul>
+    {{ end }}
 </div>
