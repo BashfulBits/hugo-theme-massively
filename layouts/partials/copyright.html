@@ -40,7 +40,8 @@
             {{ with .File }}
               {{ $filepath = .Path }}
             {{ end }}
-            <a href="{{ $repoURL }}/blob/{{ .GitInfo.Hash }}/{{ $contentDir }}/{{ $filepath }}" class="icon fas fa-code-branch">&nbsp;{{ .GitInfo.AbbreviatedHash }}</a>
+            <i class="icon fas fa-code-branch"></i>
+            <a href="{{ $repoURL }}/blob/{{ .GitInfo.Hash }}/{{ $contentDir }}/{{ $filepath }}">{{ .GitInfo.AbbreviatedHash }}</a>
           {{ else }}
             <i class="icon fas fa-code-branch"></i>&nbsp;{{ .GitInfo.AbbreviatedHash }}
           {{ end }}
