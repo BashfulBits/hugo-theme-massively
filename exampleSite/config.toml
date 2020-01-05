@@ -102,7 +102,7 @@ copyright = "I made this"
       readMore = "Read more"
       featuredPost = true
       [Languages.en.params.section.blog]
-        readMore = "Talks Read more"
+        readMore = "Read this blog entry"
         showFirstLast = true
 
   # [Languages.de]
