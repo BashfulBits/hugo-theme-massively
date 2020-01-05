@@ -4,7 +4,9 @@
 <article class="post featured">
     <header class="major">
         {{ if not .Date.IsZero }}
-        <span class="date">{{ .Date.Format (.Site.Params.DateFormat | default "January 2, 2006") }}</span>
+          <time class="date" datetime="{{ .Date.Format "2006-01-02" | safeHTML }}">
+            {{- .Date.Format (.Site.Params.DateFormat | default "January 2, 2006") -}}
+          </time>
         {{ end }}
         <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
         <p>{{ .Description }}</p>

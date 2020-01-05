@@ -1,11 +1,14 @@
-<!-- Nav -->
-{{ $data := index .Site.Data .Site.Language.Lang }}
+<!--
+  Navigation menu
+  Configuration of [[menu.main]] replaces the default navigation menu completely
+ -->
 <nav id="nav">
   <ul class="links">
-    {{ $current := . }}
+    {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
-      {{ $topLevel := replace .URL "/" "" }}
-      <li class="dropdown{{ if eq $current.RelPermalink .URL | or (eq $current.Type $topLevel) | or (and (eq (default (trim .URL "/") .Identifier) "blog") (in (slice "taxonomy" "taxonomyTerm") $current.Kind)) }} active{{ end }}">
+      {{ $topLevelLangType := replace ( .URL | relLangURL ) "/" "" }}
+      {{ $currentPageLangType := replace ( $currentPage.Type | relLangURL ) "/" "" }}
+      <li class="dropdown{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPageLangType $topLevelLangType) }} active{{end}}">
       {{ if .HasChildren }}
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -17,27 +20,19 @@
         <a href="{{ .URL }}">{{ .Name }}</a>
       {{ end }}
       </li>
+    {{ else }}
+      <li class="{{ if $currentPage.IsHome }}active{{ end }}"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Home.LinkTitle }}</a></li>
+      {{ range $section := .Site.Sections }}
+        <li class="{{ if eq $section.Type $currentPage.Section }}active{{ end }}"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
     {{ end }}
-    {{ with $data.contactinfo }}
+    {{ with .Site.Params.Contact.ShowMenuItem }}
       <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
     {{ end }}
   </ul>
-  {{ with $data.social }}
+  {{ with .Site.Params.Social }}
   <ul class="icons">
     {{- partial "social" . }}
   </ul>
   {{ end }}
-  {{/*
-  {{ if .IsTranslated }}
-  <ul class="icons">
-    {{ range .AllTranslations }}
-      <li>
-        <a href="#" class="icon fas fa-language">
-          <span class="label">Language</span>
-        </a>
-      </li>
-      <!-- <li {{if eq ($.Site.Language) (.Language)}}class="active"{{end}}><a href='{{ .Permalink }}'>{{ .Language.LanguageName }}</a></li> -->
-  </ul>
-  {{ end }}
-  */}}
 </nav>

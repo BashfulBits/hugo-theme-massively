@@ -1,11 +1,11 @@
 {{ define "main" }}
 
-  <!-- Get current section parameters, default to "lists" or theme defaults if not set -->
+  <!-- Get current section parameters, default to "section" or theme defaults if not set -->
   {{ $parameters := dict "pageSize" 6 "featuredPost" false "paginationPages" 2 "showFirstLast" false "readMore" "Full story" }}
-  {{ with index .Site.Params "section" }}
+  {{ with .Site.Params.Section }}
     {{ $parameters = merge $parameters . }}
   {{ end }}
-  {{ with index .Site.Params .Section }}
+  {{ with index .Site.Params.Section .Section }}
     {{ $parameters = merge $parameters . }}
   {{ end }}
   
@@ -27,6 +27,6 @@
 
   {{ $paginator := .Paginator }}
   {{ $outer := . }}
-  {{ partial "posts/pagination.html" (dict "paginator" $paginator "outer" $outer)}}
+  {{ partial "posts/pagination.html" (dict "paginator" $paginator "outer" $outer "parameters" $parameters)}}
 
 {{ end }}

@@ -1,7 +1,6 @@
 <!-- Footer -->
-{{ $data := index .Site.Data .Site.Language.Lang }}
 <footer id="footer">
-    {{ with $data.contactinfo.contactformaction }}
+  {{ with .Site.Params.Contact.ContactFormAction }}
     <section>
       <form method="post" action="{{ . }}">
         <div class="fields">
@@ -23,37 +22,37 @@
         </ul>
       </form>
     </section>
+  {{ end }}
+  <section class="split contact">
+    {{ with .Site.Params.Contact.Address }}
+      <section class="alt">
+        <h3>{{ i18n "CONTACT_ADDRESS" . }}</h3>
+        <p>
+          {{ range $i, $e := . }}
+            {{ if $i }} <br/> {{ end }} {{ . }}
+          {{ end }}
+        </p>
+      </section>
     {{ end }}
-    <section class="split contact">
-        {{ with $data.contactinfo.address }}
-        <section class="alt">
-            <h3>{{ i18n "CONTACT_ADDRESS" . }}</h3>
-            <p>
-                {{ range $i, $e := . }}
-                    {{ if $i }} <br/> {{ end }} {{ .line }}
-                {{ end }}
-            </p>
-        </section>
-        {{ end }}
-        {{ with $data.contactinfo.phone }}
-        <section>
-            <h3>{{ i18n "CONTACT_PHONE" . }}</h3>
-            <p><a href="tel:{{ . }}">{{ . }}</a></p>
-        </section>
-        {{ end }}
-        {{ with $data.contactinfo.email }}
-        <section>
-            <h3>{{ i18n "CONTACT_EMAIL" . }}</h3>
-            <p><a href="mailto:{{ . }}">{{ . }}</a></p>
-        </section>
-        {{ end }}
-        {{ with $data.social }}
-        <section>
-            <h3>{{ i18n "CONTACT_SOCIAL" . }}</h3>
-            <ul class="icons alt">
-              {{ partial "social" . }}
-            </ul>
-        </section>
-        {{ end }}
-    </section>
+    {{ with .Site.Params.Contact.Phone }}
+      <section>
+        <h3>{{ i18n "CONTACT_PHONE" . }}</h3>
+        <p><a href="tel:{{ . }}">{{ . }}</a></p>
+      </section>
+    {{ end }}
+    {{ with .Site.Params.Contact.Email }}
+      <section>
+        <h3>{{ i18n "CONTACT_EMAIL" . }}</h3>
+        <p><a href="mailto:{{ . }}">{{ . }}</a></p>
+      </section>
+    {{ end }}
+    {{ with .Site.Params.Social }}
+      <section>
+        <h3>{{ i18n "CONTACT_SOCIAL" . }}</h3>
+        <ul class="icons alt">
+          {{ partial "social" . }}
+        </ul>
+      </section>
+    {{ end }}
+  </section>
 </footer>
