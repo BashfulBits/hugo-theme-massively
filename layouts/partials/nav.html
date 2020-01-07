@@ -30,6 +30,28 @@
       <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
     {{ end }}
   </ul>
+  <!-- Display language switcher if site is translated -->
+  {{ if gt (len .Site.Languages) 1 }}
+    <ul class="icons">
+      <li>
+        <i class="icon fas fa-language"></i>
+      </li>
+    </ul>
+    <ul class="icons links">
+      <!-- https://xdeb.org/post/2018/04/05/go-multilingual-with-hugo/ -->
+      {{ if .IsTranslated }}
+        {{ range .Translations }}
+          <li><a rel="alternate" href="{{ .RelPermalink }}" hreflang="{{ .Lang }}" lang="{{ .Lang }}">{{ .Language.LanguageName }}</a></li>
+        {{ end }}
+      {{ else -}}
+        {{ range .Site.Languages -}}
+          {{ if ne $.Site.Language.Lang .Lang }}
+            <li><a rel="alternate" href="{{ .Lang | relURL }}" hreflang="{{ .Lang }}" lang="{{ .Lang }}">{{ .LanguageName }}</a></li>
+          {{ end -}}
+        {{ end -}}
+      {{ end -}}
+    </ul>
+  {{ end }}
   {{ with .Site.Params.Social }}
   <ul class="icons">
     {{- partial "social" . }}
