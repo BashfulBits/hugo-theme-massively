@@ -7,7 +7,7 @@
     </h1>
     <p>
         {{ range $i, $e := .description }}
-            {{ if $i }} <br/> {{ end }} {{ . }}
+            {{ if $i }} <br/> {{ end }} {{ . | markdownify }}
         {{ end }}
     </p>
     <ul class="actions">
