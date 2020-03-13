@@ -6,6 +6,11 @@
         {{ end }}
     </h1>
     <p>
+        {{ range $i, $e := .tagline }}
+            {{ if $i }} <br/> {{ end }} {{ . | markdownify }}
+        {{ end }}
+    </p>
+    <p>
         {{ range $i, $e := .description }}
             {{ if $i }} <br/> {{ end }} {{ . | markdownify }}
         {{ end }}
