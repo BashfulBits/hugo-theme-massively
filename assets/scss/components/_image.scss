@@ -52,6 +52,20 @@
 			}
 		}
 
+		&.avatar {
+			margin: _size(element-margin) 0;
+			width: 100%;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			img {
+        border-radius: 50%;
+        display: inline-block;
+			}
+		}
+
 		&.main {
 			display: block;
 			margin: (_size(element-margin) * 2) 0;

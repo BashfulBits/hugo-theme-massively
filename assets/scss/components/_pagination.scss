@@ -38,26 +38,43 @@
 			text-transform: uppercase;
 		}
 
-		.next, .previous {
+		.next, .previous, .last, .first {
 			@include icon;
 			padding: 0 1.75rem;
 
 			&:before {
 				display: inline-block;
 				color: inherit !important;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+			}
+		}
+
+		.first {
+			&:before {
+				content: '\f100';
+				margin-left: (0.75em / 0.8);
 			}
 		}
 
 		.previous {
 			&:before {
-				content: '\f104';
-				margin-right: (0.75em / 0.8);
+        content: '\f104';
+				margin-left: (0.75em / 0.8);
 			}
 		}
 
 		.next {
 			&:before {
 				content: '\f105';
+				float: right;
+				margin-left: (0.75em / 0.8);
+			}
+		}
+
+		.last {
+			&:before {
+				content: '\f101';
 				float: right;
 				margin-left: (0.75em / 0.8);
 			}

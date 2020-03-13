@@ -1,13 +1,14 @@
 {{ $paginator := .paginator }}
 {{ $outer := .outer}}
+{{ $parameters := .parameters }}
 
 <!-- Thanks to https://glennmccomb.com/articles/how-to-build-custom-hugo-pagination/ -->
 
 <!-- Show first and last link-->
-{{ $show_first_last := $outer.Site.Params.Posts.showFirstLast | default false }}
+{{ $show_first_last := $parameters.showFirstLast | default false }}
 
 <!-- Number of links either side of the current page. -->
-{{ $adjacent_links := $outer.Site.Params.Posts.paginationPages | default 2 }}
+{{ $adjacent_links := $parameters.paginationPages | default 2 }}
 
 <!-- $max_links = ($adjacent_links * 2) + 1 -->
 {{ $max_links := (add (mul $adjacent_links 2) 1) }}

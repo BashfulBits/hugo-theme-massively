@@ -1,31 +1,149 @@
-languageCode = "en-us"
 title = "Massively"
-baseURL = "http://localhost:1313/"
+baseURL = "https://example.com"
 theme = "hugo-theme-massively"
-googleanalytics = ""
-disqusShortname = ""
-disableKinds = ["taxonomy", "taxonomyTerm", "section"]
 
-# [params]
+enableGitInfo = true
+disableKinds = ["taxonomy", "taxonomyTerm"]
+copyright = "I made this"
+
+[params]
+  backgroundImage = "bg.jpg"
+  enableParallax = false
+  repoURL = "https://github.com/USERNAME/REPO"
+  
+  # Only if enableGitInfo = true
+  # If contentDir is different from Hugo's default, specify it here again
+  # as Hugo doesn't expose the custom dir within templates
+  # https://discourse.gohugo.io/t/accessing-the-contentdir-location-from-within-a-template/8271
+  # https://github.com/gohugoio/hugo/issues/5741
+  contentDir = ""
+
   # set below parameter to define a favicon
   # favicon = "favicon.ico"
   # set to change date format
   # dateFormat = "2.1.2006"
 
-# Below parameters can be set to override default post settings
-# [params.posts]
-#     folderName = "post"
-#     pageSize = "6"
-#     featuredPost = true
-#     paginationPages = 2
-#     showFirstLast = false
- 
-[languages]
-[languages.en]
-  languageName = "English"
-[languages.es]
-  languageName = "Español"
-  title = "Massively - Versión Español"
-#[languages.fr]
-#  languageName = "Français"
-#  title = "Massively - Version Française"
+  # Optional. Can be used to extend site intro with multi-line title and/or description
+  # Do not contextually rely on multiple lines as they will be concatenated in mobile view
+  [params.intro]
+    title = ["Massively"]
+    description = [
+      "A free, fully responsive HTML5 + CSS3 site template designed by @ajlkn for HTML5 UP",
+      "and released for free under the Creative Commons license."
+    ]
+
+  # Below parameters can be set to override default settings for list pages
+  # If you create additional sections, you can also use specific settings by using [params.section.<SECTION_NAME>]
+  [params.section]
+    pageSize = "6"
+    featuredPost = true
+    paginationPages = 2
+    showFirstLast = false
+    readMore = "Read more"
+
+  [params.contact]
+    showMenuItem = true
+    contactFormAction = 'post-action'
+    address = [
+      '1234 Somewhere Road #87257',
+      'Nashville, TN 00000-0000'
+    ]
+    phone = '(800) 000-0000'
+    email = 'someone@untitled.tld'
+
+  # Add [[params.social.profiles]] to your language-specific settings if you want to append a profile to this list
+  [params.social]
+    [[params.social.profiles]]
+      url = "https://twitter.com/marcelbrueckner"
+    [[params.social.profiles]]
+      url = "https://github.com/marcelbrueckner"
+    [[params.social.profiles]]
+      url = "https://gitlab.com/marcelbrueckner"
+    [[params.social.profiles]]
+      url = "https://stackoverflow.com/users/5995009"
+    [[params.social.profiles]]
+      url = "https://linkedin.com/in/marcelbrueckner"
+    [[params.social.profiles]]
+      url = "https://xing.com/profile/Marcel_Brueckner8"
+  
+  [params.copyright]
+    # You can also specify your copyright message here if you like. Otherwise .Site.Copyright or - if not set - .Site.Title will be used
+    copyright = ""
+    attributions = [
+      "Design: [HTML5 UP](https://html5up.net)",
+      "Theme: [Massively MBR](https://github.com/marcelbrueckner/hugo-theme-massively), a fork of [Curtis Timson's](https://curtistimson.co.uk) [Hugo Theme Massively](https://github.com/curttimson/hugo-theme-massively)"
+    ]
+
+# [menu]
+#   # [[menu.main]] items or pages using the menu = "main" option in the frontmatter 
+#   #   will appear in the navigation menu and replace the default navigation menu COMPLETELY
+#   #   https://gohugo.io/content-management/menus/#add-content-to-menus
+#   # If you use more than one language, please configure language-specific menus below [Languages]
+#   [[menu.main]]
+#     identifier = "home"
+#     name = "About"
+#     url  = "/"
+#     weight = 1
+#   [[menu.main]]
+#     identifier = "blog"
+#     name = "Blog"
+#     url  = "/blog/"
+#     weight = 2
+
+# Configure language-specific parameters below
+# Keep in mind that specifying a dictionary within [params] overrides all globally set keys and sub-dictionaries, not just those you may want to override
+# That means, [Language.en.params.section] will OVERRIDE GLOBAL [params.section] AS WELL AS [params.section.<SECTION_NAME>] COMPLETELY
+[Languages]
+  [Languages.en]
+    LanguageCode        = "en"
+    LanguageName        = "English"
+    weight              = 1
+    [Languages.en.params.section]
+      readMore = "Read more"
+      featuredPost = true
+      [Languages.en.params.section.blog]
+        readMore = "Read this blog entry"
+        showFirstLast = true
+
+  # [Languages.de]
+  #   LanguageCode        = "de"
+  #   LanguageName        = "Deutsch"
+  #   weight              = 2
+
+  #   [Languages.de.params]
+  #     dateFormat = "02.01.2006"
+  #     [Languages.de.params.section]
+  #       readMore = "Weiterlesen"
+
+  #   [Languages.de.menu]
+  #     [[Languages.de.menu.main]]
+  #       identifier = "home"
+  #       name = "Über"
+  #       url  = "/de/"
+  #       weight = 1
+  #     [[Languages.de.menu.main]]
+  #       identifier = "blog"
+  #       name = "Blog"
+  #       url  = "/de/blog/"
+  #       weight = 2
+  
+  # You can also configure a multilingual menu here
+  # See https://gohugo.io/content-management/multilingual/#menus for details
+
+[permalinks]
+  blog = "blog/:year-:month-:day-:slug/"
+
+# https://gohugo.io/about/hugo-and-gdpr/
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+  [privacy.twitter]
+    disable = true
+  [privacy.vimeo]
+    disable = true
+  [privacy.youtube]
+    disable = true

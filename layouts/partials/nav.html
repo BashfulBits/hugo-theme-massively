@@ -1,46 +1,60 @@
-<!-- Nav -->
-{{ $data := index .Site.Data .Site.Language.Lang }}
+<!--
+  Navigation menu
+  Configuration of [[menu.main]] replaces the default navigation menu completely
+ -->
 <nav id="nav">
-    <ul class="links">
-        <li class="active"><a href='{{ "/" | relLangURL }}'>{{ .Site.Title }}</a></li>
-        {{ with $data.contactinfo }}
-        <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
+  <ul class="links">
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+      {{ $topLevelLangType := replace ( .URL | relLangURL ) "/" "" }}
+      {{ $currentPageLangType := replace ( $currentPage.Type | relLangURL ) "/" "" }}
+      <li class="dropdown{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPageLangType $topLevelLangType) }} active{{end}}">
+      {{ if .HasChildren }}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        {{ range .Children }}
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
         {{ end }}
-        {{ if .IsTranslated }}
-        {{ range .AllTranslations }}
-        <li {{if eq ($.Site.Language) (.Language)}}class="active"{{end}}><a href='{{ .Permalink }}'>{{ .Language.LanguageName }}</a></li>
-        {{ end }}
-        {{ end }}
-    </ul>
-    {{ with $data.social }}
-    <ul class="icons">
-        {{ with .twitter }}
-        <li><a href="{{ . }}" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-        {{ end }}
-        {{ with .facebook }}
-        <li><a href="{{ . }}" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-        {{ end }}
-        {{ with .instagram }}
-        <li><a href="{{ . }}" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-        {{ end }}
-        {{ with .linkedin }}
-        <li><a href="{{ . }}" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-        {{ end }}
-        {{ with .github }}
-        <li><a href="{{ . }}" class="icon fa-github"><span class="label">GitHub</span></a></li>
-        {{ end }}
-        {{ with .youtube }}
-        <li><a href="{{ . }}" class="icon fa-youtube"><span class="label">Youtube</span></a></li>
-        {{ end }}
-        {{ with .googleplus }}
-        <li><a href="{{ . }}" class="icon fa-google-plus"><span class="label">Google Plus</span></a></li>
-        {{ end }}
-        {{ with .lastfm }}
-        <li><a href="{{ . }}" class="icon fa-lastfm"><span class="label">Last.fm</span></a></li>
-        {{ end }}
-        {{ with .flickr }}
-        <li><a href="{{ . }}" class="icon fa-flickr"><span class="label">Flickr</span></a></li>
-        {{ end }}
-    </ul>
+        </ul>
+      {{ else }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+      </li>
+    {{ else }}
+      <li class="{{ if $currentPage.IsHome }}active{{ end }}"><a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Home.LinkTitle }}</a></li>
+      {{ range $section := .Site.Sections }}
+        <li class="{{ if eq $section.Type $currentPage.Section }}active{{ end }}"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
     {{ end }}
+    {{ with .Site.Params.Contact.ShowMenuItem }}
+      <li><a href='{{ "#footer" | relLangURL }}'>{{ i18n "NAV_CONTACT" . }}</a></li>
+    {{ end }}
+  </ul>
+  <!-- Display language switcher if site is translated -->
+  {{ if gt (len .Site.Languages) 1 }}
+    <ul class="icons">
+      <li>
+        <i class="icon fas fa-language"></i>
+      </li>
+    </ul>
+    <ul class="icons links">
+      <!-- https://xdeb.org/post/2018/04/05/go-multilingual-with-hugo/ -->
+      {{ if .IsTranslated }}
+        {{ range .Translations }}
+          <li><a rel="alternate" href="{{ .RelPermalink }}" hreflang="{{ .Lang }}" lang="{{ .Lang }}">{{ .Language.LanguageName }}</a></li>
+        {{ end }}
+      {{ else -}}
+        {{ range .Site.Languages -}}
+          {{ if ne $.Site.Language.Lang .Lang }}
+            <li><a rel="alternate" href="{{ .Lang | relURL }}" hreflang="{{ .Lang }}" lang="{{ .Lang }}">{{ .LanguageName }}</a></li>
+          {{ end -}}
+        {{ end -}}
+      {{ end -}}
+    </ul>
+  {{ end }}
+  {{ with .Site.Params.Social }}
+  <ul class="icons">
+    {{- partial "social" . }}
+  </ul>
+  {{ end }}
 </nav>

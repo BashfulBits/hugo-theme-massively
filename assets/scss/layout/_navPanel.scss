@@ -28,7 +28,9 @@
 		z-index: _misc(z-index-base) + 1;
 
 		&:before {
-			content: '\f0c9';
+      content: '\f0c9';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
 			margin-right: 0.5rem;
 		}
 
@@ -116,6 +118,8 @@
 
 			&:before {
 				content: '\f00d';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
 				font-size: 1.25rem;
 			}
 

@@ -1,0 +1,31 @@
+<head>
+  <title>{{ if eq (.Site.Title) (.Title) }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!-- CSS -->
+  {{ if .Site.IsServer }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | toCSS (dict "targetPath" "assets/css/main.css" "enableSourceMap" true) }}
+    <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
+  {{ else }}
+    {{ $style := resources.Get "scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | toCSS (dict "targetPath" "assets/css/main.css" "enableSourceMap" false) }}
+    <link rel="stylesheet" href="{{ ($style | minify).RelPermalink }}">
+  {{ end }}
+  {{ partial "bg" . }}
+  {{ with .Site.Params.favicon }}
+    <link rel="shortcut icon" href="{{ . }}">
+  {{ end }}
+  {{ $noscript := resources.Get "scss/noscript.scss" | resources.ExecuteAsTemplate "noscript.scss" . | toCSS (dict "targetPath" "assets/css/noscript.css" "enableSourceMap" false) }}
+  <noscript><link rel="stylesheet" href='{{ $noscript.RelPermalink }}' /></noscript>
+  <!--
+    Custom CSS
+    Thanks to https://github.com/rbind/apreshill/blob/d9373484b90226bd3c84a9d705ac70daedd8d00f/themes/hugo-academic/layouts/partials/site_head.html#L107-L117
+  -->
+  {{ with .Site.Params.CustomCSS }}
+    {{ $css := slice }}
+    {{ range . }}
+      {{ $css = $css | append (resources.Get (printf "css/%s" .)) }}
+    {{ end }}
+    {{ $css := $css | resources.Concat "assets/css/custom.css" | minify }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+  {{ end }}
+</head>
