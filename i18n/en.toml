@@ -2,8 +2,14 @@
   other = "Address"
 [CONTACT_EMAIL]
   other = "Email"
+[CONTACT_FORM_TITLE]
+  other = "Contact Us"
 [CONTACT_FORM_FIELD_EMAIL]
   other = "Email"
+[CONTACT_FORM_FIELD_FIRST_NAME]
+  other = "First Name"
+[CONTACT_FORM_FIELD_LAST_NAME]
+  other = "Last Name"
 [CONTACT_FORM_FIELD_MESSAGE]
   other = "Message"
 [CONTACT_FORM_FIELD_NAME]
@@ -14,6 +20,8 @@
   other = "Phone"
 [CONTACT_SOCIAL]
   other = "Social"
+[MAILCHIMP_TITLE]
+  other = "Join our email list"
 [COPYRIGHT_MESSAGE_1]
   other = "Design: [HTML5 UP](https://html5up.net)"
 [COPYRIGHT_MESSAGE_2]

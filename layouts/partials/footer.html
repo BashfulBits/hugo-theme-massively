@@ -2,6 +2,7 @@
 <footer id="footer">
   {{ with .Site.Params.Contact.ContactFormAction }}
     <section>
+      <h2>{{ i18n "CONTACT_FORM_TITLE" . }}</h2>
       <form method="post" action="{{ . }}">
         <div class="fields">
           <div class="field">
@@ -24,6 +25,7 @@
     </section>
   {{ end }}
   <section class="split contact">
+    {{ if isset .Site.Params "mailchimpurl" }}{{ partial "mailchimp-signup" . }}{{ end }}
     {{ with .Site.Params.Contact.Address }}
       <section class="alt">
         <h3>{{ i18n "CONTACT_ADDRESS" . }}</h3>

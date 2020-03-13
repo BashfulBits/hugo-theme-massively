@@ -1,0 +1,20 @@
+<section>
+	<form action="{{ .Site.Params.mailchimpURL }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<h2>{{ i18n "MAILCHIMP_TITLE" . }}</h2>
+		<div class="fields">
+			<div class="field">
+				<label for="mce-EMAIL">{{ i18n "CONTACT_FORM_FIELD_EMAIL" . }}</label>
+				<input type="email" value="" name="EMAIL" id="mce-EMAIL">
+			</div>
+			<div class="field">
+				<label for="mce-FNAME">{{ i18n "CONTACT_FORM_FIELD_FIRST_NAME" . }}</label>
+				<input type="email" value="" name="FNAME" id="mce-FNAME">
+			</div>
+			<div class="field">
+				<label for="mce-LNAME">{{ i18n "CONTACT_FORM_FIELD_LAST_NAME" . }}</label>
+				<input type="email" value="" name="LNAME" id="mce-LNAME">
+			</div>
+		</div>
+		<input type="submit" value="Sign Up" name="subscribe" id="mc-embedded-subscribe" class="button">
+	</form>
+</section>
