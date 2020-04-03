@@ -4,15 +4,17 @@
 {{ with $data.principles.principles }}
 {{"<!-- principles -->" | safeHTML}}
 <!-- <div id="principles"> -->
-  <h1>{{ .title | markdownify }}</h1>
+  <h2>{{ .title | markdownify }}</h2>
   {{ range .principles_item }}
   <section class="principle">
+    <h2>{{ .name }}</h2>
+    <div>
     <!-- <div class="media"> -->
       <img src="{{ .image | absURL }}"></i>
     <!-- </div> -->
     <div>
-      <h2>{{ .name }}</h2>
       {{ .content | markdownify }}
+    </div>
     </div>
   </section>
   {{ end }}
