@@ -1,0 +1,22 @@
+{{ $data := index .Site.Data .Site.Language.Lang }}
+
+{{ if $data.principles.principles.enable }}
+{{ with $data.principles.principles }}
+{{"<!-- principles -->" | safeHTML}}
+<!-- <div id="principles"> -->
+  <h1>{{ .title | markdownify }}</h1>
+  {{ range .principles_item }}
+  <section class="principle">
+    <!-- <div class="media"> -->
+      <img src="{{ .image | absURL }}"></i>
+    <!-- </div> -->
+    <div>
+      <h2>{{ .name }}</h2>
+      {{ .content | markdownify }}
+    </div>
+  </section>
+  {{ end }}
+<!-- </div> -->
+{{"<!-- /principles -->" | safeHTML}}
+{{ end }}
+{{ end }}

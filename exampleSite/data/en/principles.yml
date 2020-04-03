@@ -1,0 +1,14 @@
+#################################### principles ###############################
+principles:
+  enable : true
+  title : Core Principles
+  principles_item :
+    # principles item loop
+    - name : Principal 1
+      image : images/pic1.jpg
+      content : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+    # principles item loop
+    - name : Principal 2
+      image : images/pic2.jpg
+      content : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

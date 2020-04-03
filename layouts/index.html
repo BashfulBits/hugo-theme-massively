@@ -1,14 +1,9 @@
 {{ define "main" }}
   <!-- This is the homepage's template and is included in layouts/_default/baseof.html -->
-  <section class="post">
-    <header class="major">
-      {{ if .Params.avatar }}
-        <div class="image avatar"><img src="{{ index .Params "avatar" | relURL }}" alt="Avatar of {{ .Title }}"></div>
-      {{ end }}
-      <h1>{{ .Title }}</h1>
-      <p>{{ .Description }}</p>
-    </header>
     <!-- Content for index.html will be pulled from content/_index.md -->
-    {{ .Content }}
-  </section>
+    <section>
+      {{ .Content }}
+    </section>
+  {{ partial "mailchimp-signup.html" . }}
+  {{ partial "principles.html" . }}
 {{ end }}
