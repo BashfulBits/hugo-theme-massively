@@ -28,4 +28,5 @@
     {{ $css := $css | resources.Concat "assets/css/custom.css" | minify }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}">
   {{ end }}
+  {{- template "_internal/google_analytics_async.html" . -}}
 </head>
